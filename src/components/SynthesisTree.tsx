@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store';
-import { SynthesisTreeNode, selectAdvancedItem } from '../store/itemCraftSlice';
+import type { RootState, AppDispatch } from '../store';
+import type { SynthesisTreeNode } from '../store/itemCraftSlice';
+import { selectAdvancedItem } from '../store/itemCraftSlice';
 import { getItemById, advancedItems } from '../data/items';
 import ItemCard from './ItemCard';
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import { AutoAwesome } from '@mui/icons-material';
 import BaseItemPanel from '../components/BaseItemPanel';
 import CraftArea from '../components/CraftArea';
@@ -21,35 +21,29 @@ const ItemCraftPage: React.FC = () => {
         </Box>
       </Box>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} lg={4}>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
+        <Box sx={{ flex: '1 1 320px', minWidth: 320, maxWidth: { lg: 400 } }}>
           <Paper sx={{ height: '100%' }}>
             <BaseItemPanel />
           </Paper>
-        </Grid>
+        </Box>
 
-        <Grid item xs={12} lg={8}>
-          <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Paper>
-                <CraftArea />
-              </Paper>
-            </Grid>
+        <Box sx={{ flex: '2 1 500px', minWidth: 500, display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Paper>
+            <CraftArea />
+          </Paper>
 
-            <Grid item xs={12}>
-              <Paper>
-                <SavedPlans />
-              </Paper>
-            </Grid>
-          </Grid>
-        </Grid>
+          <Paper>
+            <SavedPlans />
+          </Paper>
+        </Box>
 
-        <Grid item xs={12}>
+        <Box sx={{ flex: '1 1 100%' }}>
           <Paper>
             <SynthesisTree />
           </Paper>
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </Box>
   );
 };

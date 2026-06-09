@@ -2,7 +2,8 @@ import React from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { Close, Add, AutoAwesome } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch, setSlot1, setSlot2, craftItem, clearSlots } from '../store';
+import type { RootState, AppDispatch } from '../store';
+import { setSlot1, setSlot2, craftItem, clearSlots } from '../store';
 import { getItemById, findSynthesisResult, baseItems } from '../data/items';
 import ItemCard from './ItemCard';
 

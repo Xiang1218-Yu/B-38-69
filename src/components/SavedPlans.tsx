@@ -23,7 +23,7 @@ import {
   ClearAll as ClearAllIcon,
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState, AppDispatch } from '../store';
+import type { RootState, AppDispatch } from '../store';
 import {
   saveCurrentPlan,
   loadPlan,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Tooltip } from '@mui/material';
-import { BaseItem, AdvancedItem } from '../data/items';
+import type { BaseItem, AdvancedItem } from '../data/items';
 
 interface ItemCardProps {
   item: BaseItem | AdvancedItem;
