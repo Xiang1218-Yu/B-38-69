@@ -34,13 +34,6 @@ const SynthesisArea: React.FC = () => {
     e.preventDefault();
     const itemId = e.dataTransfer.getData('itemId');
     if (itemId) {
-      const otherSlot = slotIndex === 0 ? 1 : 0;
-      if (slots[otherSlot].itemId === itemId) {
-        setError('不能放入相同位置的装备');
-        setTimeout(() => setError(null), 2000);
-        setDragOverIndex(null);
-        return;
-      }
       dispatch(placeItem({ slotIndex, itemId }));
     }
     setDragOverIndex(null);

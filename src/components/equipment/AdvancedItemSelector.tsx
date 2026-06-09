@@ -4,21 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAdvancedItem } from '../../store/equipmentSlice';
 import type { RootState } from '../../store';
 import { ADVANCED_ITEMS, buildSynthesisTree } from '../../data/equipmentData';
-import type { SynthesisTreeNode } from '../../data/equipmentData';
 import SynthesisTree from './SynthesisTree';
 
 const AdvancedItemSelector: React.FC = () => {
   const dispatch = useDispatch();
   const selectedAdvancedItem = useSelector((state: RootState) => state.equipment.selectedAdvancedItem);
-  const [tree, setTree] = React.useState<SynthesisTreeNode | null>(null);
 
-  React.useEffect(() => {
-    if (selectedAdvancedItem) {
-      setTree(buildSynthesisTree(selectedAdvancedItem));
-    } else {
-      setTree(null);
-    }
-  }, [selectedAdvancedItem]);
+  const tree = selectedAdvancedItem ? buildSynthesisTree(selectedAdvancedItem) : null;
 
   const handleSelect = (itemId: string) => {
     dispatch(selectAdvancedItem(selectedAdvancedItem === itemId ? null : itemId));

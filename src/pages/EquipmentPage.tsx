@@ -1,5 +1,8 @@
 import React from 'react';
 import { Box, Grid, Card, CardContent, Typography } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { placeItem } from '../store/equipmentSlice';
+import type { RootState } from '../store';
 import BasicItemPanel from '../components/equipment/BasicItemPanel';
 import SynthesisArea from '../components/equipment/SynthesisArea';
 import SynthesisHistory from '../components/equipment/SynthesisHistory';
@@ -7,6 +10,17 @@ import AdvancedItemSelector from '../components/equipment/AdvancedItemSelector';
 import SchemeManager from '../components/equipment/SchemeManager';
 
 const EquipmentPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const slots = useSelector((state: RootState) => state.equipment.slots);
+
+  const handleItemClick = (itemId: string) => {
+    if (!slots[0].itemId) {
+      dispatch(placeItem({ slotIndex: 0, itemId }));
+    } else if (!slots[1].itemId) {
+      dispatch(placeItem({ slotIndex: 1, itemId }));
+    }
+  };
+
   return (
     <Box>
       <Box sx={{ mb: 3 }}>
@@ -14,7 +28,7 @@ const EquipmentPage: React.FC = () => {
           ⚗️ 装备合成工坊
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          拖拽基础装备至合成区域，探索无限合成可能
+          拖拽或点击装备放入合成区域，探索无限合成可能
         </Typography>
       </Box>
 
@@ -22,7 +36,7 @@ const EquipmentPage: React.FC = () => {
         <Grid size={{ xs: 12, md: 4 }}>
           <Card>
             <CardContent>
-              <BasicItemPanel showCombined />
+              <BasicItemPanel showCombined onItemClick={handleItemClick} />
             </CardContent>
           </Card>
         </Grid>
