@@ -8,10 +8,6 @@ import {
   DialogContent,
   DialogActions,
   TextField,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
   IconButton,
   Chip,
   Divider,
@@ -56,6 +52,10 @@ const SavedPlans: React.FC = () => {
       hour: '2-digit',
       minute: '2-digit',
     });
+  };
+
+  const handleLoad = (planId: string) => {
+    dispatch(loadPlan(planId));
   };
 
   return (
@@ -138,6 +138,7 @@ const SavedPlans: React.FC = () => {
                       width: 20,
                       height: 20,
                       '&:hover': { bgcolor: 'error.dark' },
+                      zIndex: 10,
                     }}
                   >
                     <DeleteIcon sx={{ fontSize: 12, color: '#fff' }} />
@@ -173,49 +174,68 @@ const SavedPlans: React.FC = () => {
           <Typography variant="body2">暂无保存的方案</Typography>
         </Box>
       ) : (
-        <List sx={{ maxHeight: 300, overflowY: 'auto' }}>
+        <Box sx={{ maxHeight: 300, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 1 }}>
           {savedPlans.map((plan) => (
-            <ListItem
+            <Box
               key={plan.id}
               sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                p: 2,
                 borderRadius: 2,
-                mb: 1,
                 border: '1px solid rgba(255, 255, 255, 0.08)',
                 '&:hover': { bgcolor: 'rgba(255, 255, 255, 0.05)' },
               }}
             >
-              <ListItemText
-                primary={
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Typography sx={{ fontWeight: 500 }}>{plan.name}</Typography>
-                    <Chip
-                      label={`${plan.craftedItems.length}件装备`}
-                      size="small"
-                      sx={{ bgcolor: 'rgba(0, 255, 159, 0.15)', color: '#00ff9f', fontSize: 11 }}
-                    />
-                  </Box>
-                }
-                secondary={formatDate(plan.createdAt)}
-              />
-              <ListItemSecondaryAction>
+              <Box>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <Typography sx={{ fontWeight: 500 }}>{plan.name}</Typography>
+                  <Chip
+                    label={`${plan.craftedItems.length}件装备`}
+                    size="small"
+                    sx={{ bgcolor: 'rgba(0, 255, 159, 0.15)', color: '#00ff9f', fontSize: 11 }}
+                  />
+                </Box>
+                <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: 12, mt: 0.5 }}>
+                  {formatDate(plan.createdAt)}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1 }}>
                 <IconButton
                   size="small"
-                  onClick={() => dispatch(loadPlan(plan.id))}
-                  sx={{ color: 'primary.main', mr: 1 }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleLoad(plan.id);
+                  }}
+                  sx={{
+                    color: 'primary.main',
+                    border: '1px solid rgba(0, 255, 159, 0.3)',
+                    '&:hover': { bgcolor: 'rgba(0, 255, 159, 0.1)' },
+                  }}
+                  title="加载方案"
                 >
                   <LoadIcon fontSize="small" />
                 </IconButton>
                 <IconButton
                   size="small"
-                  onClick={() => dispatch(deletePlan(plan.id))}
-                  sx={{ color: 'error.main' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    dispatch(deletePlan(plan.id));
+                  }}
+                  sx={{
+                    color: 'error.main',
+                    border: '1px solid rgba(244, 67, 54, 0.3)',
+                    '&:hover': { bgcolor: 'rgba(244, 67, 54, 0.1)' },
+                  }}
+                  title="删除方案"
                 >
                   <DeleteIcon fontSize="small" />
                 </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
+              </Box>
+            </Box>
           ))}
-        </List>
+        </Box>
       )}
 
       <Dialog open={saveDialogOpen} onClose={() => setSaveDialogOpen(false)} maxWidth="sm" fullWidth>

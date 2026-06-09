@@ -121,7 +121,7 @@ const itemCraftSlice = createSlice({
     loadPlan: (state, action: PayloadAction<string>) => {
       const plan = state.savedPlans.find(p => p.id === action.payload);
       if (plan) {
-        state.craftedItems = [...plan.craftedItems];
+        state.craftedItems = plan.craftedItems.map(item => ({ ...item }));
         state.slot1 = null;
         state.slot2 = null;
       }
