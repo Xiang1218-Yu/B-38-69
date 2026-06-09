@@ -7,7 +7,8 @@ import {
   Groups as HeroIcon,
   Storage as ItemsIcon,
   Settings as SettingsIcon,
-  QrCode2 as QrIcon
+  QrCode2 as QrIcon,
+  Build as CraftIcon
 } from '@mui/icons-material';
 
 import './Sidebar.css';
@@ -37,6 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onClose }) => {
 
   const navItems = [
     { icon: <LineupIcon />, label: '阵容', path: '/' },
+    { icon: <CraftIcon />, label: '合成', path: '/crafting' },
     { icon: <StatsIcon />, label: '数据', path: '/stats' },
     { icon: <HeroIcon />, label: '英雄', path: '/heroes' },
     { icon: <ItemsIcon />, label: '物品', path: '/items' },
